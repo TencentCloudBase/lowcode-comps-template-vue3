@@ -20,7 +20,10 @@
   "description": "腾讯云微搭低代码组件库模板",
   "dependencies": {
     "prop-types": "^15.7.2",
-    "react": "^17.0.1"
+    "react": "^17.0.1",
+    "veaury": "^2.4.2",
+    "vue": "^3.4.32",
+    "vue-loader": "^17.4.2"
   },
   "devDependencies": {
     "@storybook/addon-actions": "^6.1.21",

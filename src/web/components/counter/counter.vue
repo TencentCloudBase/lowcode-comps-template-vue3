@@ -1,62 +1,29 @@
-<template>
-  <div :id="id" :style="styles" :class="className">
-    <div class="counter-row">
-      <button class="counter-button" @click="minus">-</button>
-        <span class="counter-num">{{count}}</span>
-      <button class="counter-button" @click="add">+</button>
-    </div>
-    <div>
-      <slot name="innerSlot"></slot>
-    </div>
-  </div>
-</template>
+<script setup>
+import { ref } from 'vue';
 
-<script>
-export default {
-  props: ['init', 'styles', 'className', 'id'],
-  methods: {
-    add() {
-        this.count++;
-        this.$emit('add', this.count);
-    },
-    minus() {
-        this.count--;
-        this.$emit('minus', this.count);
-    }
-  },
-  data() {
-    return {
-      count: this.init ?? 0,
-    };
-  },
-  watch: {
-    init: function(val) {
-      this.count = val;
-    }
-  }
+const emit = defineEmits(['add', 'minus']);
+
+const props = defineProps(['initialCount']);
+
+const count = ref(props.initialCount ?? 0);
+
+function dec() {
+  count.value--;
+  emit('minus', { value: count.value }); // 触发自定义事件
+}
+
+function add() {
+  count.value++;
+  emit('add', { value: count.value }); // 触发自定义事件
 }
 </script>
 
-<style>
-.counter-row {
-    display: flex;
-    align-items: center;
-}
-.counter-num {
-    padding: 0 8px;
-}
-.counter-button {
-    display: inline-block;
-    padding-left: 0;
-    padding-right: 0;
-    padding-top: 0;
-    padding-bottom: 0;
-    margin: 0;
-    font-size: 14px;
-    width: 40px;
-    height: 40px;
-    border: none;
-    background-color: rgb(239, 239, 239);
-
-}
-</style>
+<template>
+  <div>
+    <slot name="header"></slot>
+    <button @click="dec">minus</button>
+    <span>{{ count }}</span>
+    <button @click="add">add</button>
+    <slot name="footer"></slot>
+  </div>
+</template>
