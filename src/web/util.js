@@ -1,5 +1,6 @@
 import { applyVueInReact } from 'veaury';
 import React from 'react';
+import propTypes from 'prop-types';
 
 export const WedaVue3Wrapper = ({
   vSlot,
@@ -30,4 +31,12 @@ export const WedaVue3Wrapper = ({
       {vSlot}
     </Component>
   );
+};
+
+WedaVue3Wrapper.propTypes = {
+  vSlot: propTypes.objectOf(propTypes.element),
+  component: propTypes.object,
+  events: propTypes.objectOf(propTypes.func),
+  $node: propTypes.any,
+  $widget: propTypes.any,
 };
