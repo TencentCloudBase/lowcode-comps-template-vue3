@@ -1,11 +1,18 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 
 const emit = defineEmits(['add', 'minus']);
 
 const props = defineProps(['initialCount']);
 
 const count = ref(props.initialCount ?? 0);
+
+watch(
+  () => props.initialCount,
+  (newVal) => {
+    count.value = newVal ?? 0;
+  }
+);
 
 function dec() {
   count.value--;
